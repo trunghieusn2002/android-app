@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FoodApp</string>
+    <string name="bottom_home">Home</string>
+    <string name="bottom_favorite">Favorite</string>
+    <string name="bottom_add">Add</string>
+    <string name="bottom_manage">Manage</string>
+
 </resources>
