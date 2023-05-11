@@ -37,9 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 mViewPager2;
     private BottomNavigationView mBottomNavigationView;
 
-    private List<Product> products;
-    private ImageView imgProfile;
-    private RecyclerView rvCategories;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
