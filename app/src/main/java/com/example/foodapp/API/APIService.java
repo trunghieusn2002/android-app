@@ -14,6 +14,14 @@ import java.util.List;
 
 public interface APIService {
 
+   @POST("auth/register")
+   @FormUrlEncoded
+   Call<UserMessage> register(
+           @Field("firstName") String firstName,
+           @Field("lastName") String lastName,
+           @Field("email") String email,
+           @Field("password") String password);
+
    @POST("registrationapi.php?apicall=login")
    @FormUrlEncoded
    Call<UserMessage> login(@Field("username") String username,

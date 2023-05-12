@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="412dp"
-        android:layout_height="726dp"
+        android:layout_width="361dp"
+        android:layout_height="540dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,28 +20,42 @@
         android:layout_width="336dp"
         android:layout_height="40dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
         android:textColor="#00BCD4"
         android:textColorHint="#00BCD4"
+        app:layout_constraintBottom_toTopOf="@+id/etUserName2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/etUerPassword"
         android:layout_width="334dp"
         android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
         android:textColor="#00BCD4"
         android:textColorHint="#00BCD4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserName" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etUserName2"
+        android:layout_width="336dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:textColor="#00BCD4"
+        android:textColorHint="#00BCD4"
+        app:layout_constraintBottom_toTopOf="@+id/etUerPassword"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button2"
@@ -57,15 +71,15 @@
         android:id="@+id/editTextTextPersonName3"
         android:layout_width="334dp"
         android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="220dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPersonName"
         android:textColor="#00BCD4"
         android:textColorHint="#00BCD4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUerPassword" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
@@ -85,8 +99,8 @@
         android:id="@+id/textView7"
         android:layout_width="188dp"
         android:layout_height="88dp"
-        android:layout_marginTop="332dp"
-        android:layout_marginEnd="204dp"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="160dp"
         android:text="Create Account"
         android:textColor="#05AC68"
         android:textSize="34sp"
