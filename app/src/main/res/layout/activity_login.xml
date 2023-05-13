@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
     <EditText
-        android:id="@+id/etUserName"
+        android:id="@+id/etLName"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -70,7 +70,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/etLName" />
 
     <ImageView
         android:id="@+id/btnLogin"

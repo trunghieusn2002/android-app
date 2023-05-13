@@ -9,7 +9,7 @@ import com.example.foodapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextView etUserName;
+    private TextView etFName, etLName, etEmail, etPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

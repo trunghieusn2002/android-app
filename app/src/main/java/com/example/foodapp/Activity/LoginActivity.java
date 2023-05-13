@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.foodapp.API.APIService;
 import com.example.foodapp.API.RetrofitClient;
-import com.example.foodapp.Model.Message;
 import com.example.foodapp.Model.User;
 import com.example.foodapp.Model.UserMessage;
 import com.example.foodapp.R;
@@ -38,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         //progressBar = findViewById(R.id.progressBar);
-        etName = findViewById(R.id.etUserName);
+        etName = findViewById(R.id.etLName);
         etPassword = findViewById(R.id.etUserPassword);
 
         //calling the method userLogin() for login the user

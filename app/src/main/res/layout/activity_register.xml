@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/top_background2" />
 
     <EditText
-        android:id="@+id/etUserName"
+        android:id="@+id/etLName"
         android:layout_width="336dp"
         android:layout_height="40dp"
         android:layout_marginTop="28dp"
@@ -26,13 +26,13 @@
         android:inputType="textPersonName"
         android:textColor="#00BCD4"
         android:textColorHint="#00BCD4"
-        app:layout_constraintBottom_toTopOf="@+id/etUserName2"
+        app:layout_constraintBottom_toTopOf="@+id/etFName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/etUerPassword"
+        android:id="@+id/etEmail"
         android:layout_width="334dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -41,11 +41,11 @@
         android:inputType="textPersonName"
         android:textColor="#00BCD4"
         android:textColorHint="#00BCD4"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName3"
+        app:layout_constraintBottom_toTopOf="@+id/etPasswod"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/etUserName2"
+        android:id="@+id/etFName"
         android:layout_width="336dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -54,21 +54,21 @@
         android:inputType="textPersonName"
         android:textColor="#00BCD4"
         android:textColorHint="#00BCD4"
-        app:layout_constraintBottom_toTopOf="@+id/etUerPassword"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnSignUp"
         android:layout_width="97dp"
         android:layout_height="56dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="56dp"
         android:text="SIGN UP"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/etPasswod" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/etPasswod"
         android:layout_width="334dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
