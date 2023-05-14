@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodapp.API.APIService;
+import com.example.foodapp.API.Request.RegisterRequest;
 import com.example.foodapp.API.Response.AuthResponse;
 import com.example.foodapp.API.RetrofitClient;
 import com.example.foodapp.R;
@@ -67,7 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         apiService = RetrofitClient.getInstant2();
-        apiService.register(etFName.getText().toString(), etLName.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString())
+        RegisterRequest registerRequest = new RegisterRequest(etFName.getText().toString(), etLName.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
+        apiService.register(registerRequest)
                 .enqueue(new Callback<AuthResponse>() {
                     @Override
                     public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
@@ -75,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                             try {
                                 AuthResponse response1 = response.body();
                                 if (response1 != null && response1.getAccess_token() != null) {
-                                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                                     SharedPrefManager.getInstance(getApplicationContext()).login(response1.getAccess_token(), response1.getRefresh_token());
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     startActivity(intent);
@@ -90,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<AuthResponse> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Gọi Thất Bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Thất Bại", Toast.LENGTH_SHORT).show();
                     }
                 });
 

@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.foodapp.fragment.AddFragment;
 import com.example.foodapp.fragment.FavoriteFragment;
 import com.example.foodapp.fragment.HomeFragment;
+import com.example.foodapp.fragment.ManageFragment;
 
 public class MyViewPaperAdapter extends FragmentStateAdapter {
 
@@ -27,7 +28,7 @@ public class MyViewPaperAdapter extends FragmentStateAdapter {
             case 2:
                 return new FavoriteFragment();
             case 3:
-                return new FavoriteFragment();
+                return new ManageFragment();
             default:
                 return new HomeFragment();
         }

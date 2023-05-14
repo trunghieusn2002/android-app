@@ -2,6 +2,7 @@ package com.example.foodapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.API.APIService;
 import com.example.foodapp.API.RetrofitClient;
-import com.example.foodapp.Activity.MainActivity;
 import com.example.foodapp.Activity.ProfileActivity;
 import com.example.foodapp.Activity.SearchActivity;
 import com.example.foodapp.R;
-import com.example.foodapp.category.Category;
-import com.example.foodapp.category.CategoryAdapter;
+import com.example.foodapp.Model.Category;
+import com.example.foodapp.Adapter.CategoryAdapter;
+import com.example.foodapp.SharedPrefManager;
 import com.example.foodapp.product.Product;
 import com.example.foodapp.product.ProductAdapter;
 
@@ -38,12 +39,16 @@ public class HomeFragment extends Fragment {
     private List<Product> products;
     private ImageView imgProfile, imgBanner;
     private RecyclerView rvCategories;
+    private String accessToken;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        accessToken = SharedPrefManager.getInstance(getContext()).getAccessToken();
+
         imgProfile = mView.findViewById(R.id.imgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,29 +72,38 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        APIService apiService = RetrofitClient.getInstant();
-        apiService.loadLastProduct().enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                products = response.body();
+        APIService apiService = RetrofitClient.getInstant2();
+//        apiService.loadLastProduct().enqueue(new Callback<List<Product>>() {
+//            @Override
+//            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+//                products = response.body();
+//
+//                ProductAdapter mProductAdapter = new ProductAdapter(getActivity(), products);
+//                rvLastItem.setAdapter(mProductAdapter);
+//                rvLastItem.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Product>> call, Throwable t) {
+//
+//            }
+//        });
 
-                ProductAdapter mProductAdapter = new ProductAdapter(getActivity(), products);
-                rvLastItem.setAdapter(mProductAdapter);
-                rvLastItem.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-            }
-
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-
-            }
-        });
-
-        apiService.loadCategories().enqueue(new Callback<List<Category>>() {
+        String authorization = "Bearer " + accessToken;
+        apiService.getCategory(authorization).enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), response.body());
-                rvCategories.setAdapter(categoryAdapter);
-                rvCategories.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+                Log.d("API Response", "Categories: " + response);
+                if (response.isSuccessful()) {
+                    Log.d("API Response", "Categories: " + response);
+
+                    CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), response.body());
+                    rvCategories.setAdapter(categoryAdapter);
+                    rvCategories.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+                } else {
+                    Log.d("API Response", "Thất bại");
+                }
+
             }
 
             @Override

@@ -1,36 +1,17 @@
 package com.example.foodapp.Activity;
 
 import android.view.MenuItem;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.foodapp.API.APIService;
-import com.example.foodapp.API.RetrofitClient;
-import com.example.foodapp.product.ProductAdapter;
-import com.example.foodapp.product.Product;
 import com.example.foodapp.R;
-import com.example.foodapp.category.Category;
-import com.example.foodapp.category.CategoryAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodapp.API.APIService;
+import com.example.foodapp.API.Request.LoginRequest;
 import com.example.foodapp.API.Response.AuthResponse;
 import com.example.foodapp.API.RetrofitClient;
 import com.example.foodapp.Model.User;
@@ -79,12 +80,14 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         APIService apiService = RetrofitClient.getInstant2();
-        apiService.login(username, password).enqueue(new Callback<AuthResponse>() {
+
+        LoginRequest loginRequest = new LoginRequest(username,password);
+        apiService.login(loginRequest).enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 AuthResponse response1 = response.body();
                 if (response1 != null && response1.getAccess_token() != null) {
-                    Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                     SharedPrefManager.getInstance(getApplicationContext()).login(response1.getAccess_token(), response1.getRefresh_token());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
