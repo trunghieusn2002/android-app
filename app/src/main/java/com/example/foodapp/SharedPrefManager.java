@@ -10,11 +10,14 @@ import com.example.foodapp.Model.User;
 public class SharedPrefManager {
     // Khởi tạo các hằng key
     private static final String SHARED_PREF_NAME = "retrofitregisterlogin";
-    private static final String KEY_USERNAME = "keyusername";
+    private static final String KEY_FNAME = "keyfname";
+
+    private static final String KEY_LNAME = "keylname";
     private static final String KEY_EMAIL = "keyemail";
-    private static final String KEY_GENDER = "keygender";
     private static final String KEY_ID = "keyid";
     private static final String KEY_IMAGES = "keyimages";
+    private static final String KEY_ACCESS_TOKEN = "keyAcessToken";
+    private static final String KEY_REFRESH_TOKEN = "keyRefeshToken";
 
     private static SharedPrefManager mInstance;
     private static Context mContext;
@@ -35,9 +38,9 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_ID, user.getId());
-        editor.putString(KEY_USERNAME, user.getUsername());
+        editor.putString(KEY_FNAME, user.getUsername());
+        editor.putString(KEY_LNAME, user.getUsername());
         editor.putString(KEY_EMAIL, user.getEmail());
-        editor.putString(KEY_GENDER, user.getGender());
         editor.putString(KEY_IMAGES, user.getImages());
         editor.apply();
     }
@@ -45,17 +48,16 @@ public class SharedPrefManager {
     // This method will check whether user is already logged in or not
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(KEY_USERNAME, null) != null;
+        return sharedPreferences.getString(KEY_EMAIL, null) != null;
     }
 
     // This method will give the logged in user
     public User getUser() {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new User(sharedPreferences.getInt(KEY_ID, -1),
-                sharedPreferences.getString(KEY_USERNAME, null),
-                "",
+                "giotocdo",
+                "","Nam",
                 sharedPreferences.getString(KEY_EMAIL, null),
-                sharedPreferences.getString(KEY_GENDER, null),
                 sharedPreferences.getString(KEY_IMAGES, null));
     }
 
@@ -66,4 +68,12 @@ public class SharedPrefManager {
         editor.apply();
         mContext.startActivity(new Intent(mContext, LoginActivity.class));
     }
+    public void login(String accessToken, String refreshToken) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_ACCESS_TOKEN, accessToken);
+        editor.putString(KEY_REFRESH_TOKEN, refreshToken);
+        editor.apply();
+    }
+
 }

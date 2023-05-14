@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="428dp"
+        android:layout_marginTop="328dp"
         android:text="Wellcome \nBack"
         android:textColor="#FF5722"
         android:textSize="28sp"
@@ -35,31 +35,27 @@
         app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
     <EditText
-        android:id="@+id/etLName"
-        android:layout_width="0dp"
+        android:id="@+id/etUserEmail"
+        android:layout_width="347dp"
         android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="12dp"
         android:drawableStart="@drawable/name"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Username"
+        android:hint="Email"
         android:inputType="textPersonName"
         android:textColor="#00BCD4"
         android:textColorHint="#00BCD4"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/etUserPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etUserPassword"
-        android:layout_width="0dp"
+        android:layout_width="347dp"
         android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="184dp"
         android:drawableStart="@drawable/password"
         android:drawablePadding="10dp"
         android:ems="10"
@@ -68,9 +64,9 @@
         android:textColor="#03A9F4"
         android:textColorHint="#00BCD4"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLName" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/btnLogin"

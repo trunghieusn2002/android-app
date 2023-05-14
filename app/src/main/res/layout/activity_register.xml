@@ -16,18 +16,18 @@
         app:srcCompat="@drawable/top_background2" />
 
     <EditText
-        android:id="@+id/etLName"
+        android:id="@+id/etUserEmail"
         android:layout_width="336dp"
         android:layout_height="40dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Username"
+        android:hint="FirstName"
         android:inputType="textPersonName"
         android:textColor="#00BCD4"
         android:textColorHint="#00BCD4"
-        app:layout_constraintBottom_toTopOf="@+id/etFName"
+        app:layout_constraintBottom_toTopOf="@+id/etLName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -45,12 +45,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/etFName"
+        android:id="@+id/etLName"
         android:layout_width="336dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:ems="10"
-        android:hint="Username"
+        android:hint="LastName"
         android:inputType="textPersonName"
         android:textColor="#00BCD4"
         android:textColorHint="#00BCD4"
@@ -61,8 +61,8 @@
         android:id="@+id/btnSignUp"
         android:layout_width="97dp"
         android:layout_height="56dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="48dp"
         android:text="SIGN UP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPasswod" />
@@ -85,7 +85,7 @@
         android:id="@+id/textView13"
         android:layout_width="255dp"
         android:layout_height="22dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginEnd="48dp"
         android:layout_marginBottom="28dp"
         android:text="Forget your password? Recovery it"
         android:textAlignment="center"
