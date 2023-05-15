@@ -64,11 +64,11 @@
         android:hint="Mô tả"
         android:inputType="textMultiLine"
         android:minLines="2"
-        app:layout_constraintBottom_toTopOf="@+id/btnUpload"
+        app:layout_constraintBottom_toTopOf="@+id/btnDangBai"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnUpload"
+        android:id="@+id/btnDangBai"
         android:layout_width="142dp"
         android:layout_height="49dp"
         android:layout_marginStart="120dp"

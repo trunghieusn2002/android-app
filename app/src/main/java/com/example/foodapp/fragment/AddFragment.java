@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -34,15 +36,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.API.APIService;
+import com.example.foodapp.API.Request.CreatePostRequest;
+import com.example.foodapp.API.Response.ImageResponse;
+import com.example.foodapp.API.Response.PostResponse;
 import com.example.foodapp.API.RetrofitClient;
 import com.example.foodapp.Adapter.CategoryAdapter;
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.Other.RealPathUtil;
 import com.example.foodapp.R;
 import com.example.foodapp.SharedPrefManager;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -59,7 +66,11 @@ public class AddFragment extends Fragment {
     private ArrayAdapter<String> mCategoryAdapter;
     private ImageView imageView;
 
-    private EditText tvTitile;
+    private int idCategory, idAnh;
+
+    private Button btnDangBai;
+
+    private EditText tvTitile, etPrice, etDiaChi,etMoTa;
 
     private String imageUrl;
 
@@ -120,12 +131,24 @@ public class AddFragment extends Fragment {
         // ánh xạ
         imageView = mView.findViewById(R.id.imageView);
         tvTitile = mView.findViewById(R.id.tvTitle);
+        btnDangBai = mView.findViewById(R.id.btnDangBai);
+        etDiaChi = mView.findViewById(R.id.etDiaChi);
+        etMoTa = mView.findViewById(R.id.etMoTa);
+        etPrice = mView.findViewById(R.id.etPrice);
+
+        btnDangBai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DangBai();
+            }
+        });
 
         String accessToken = SharedPrefManager.getInstance(getContext()).getAccessToken();
 
         // Khởi tạo Spinner và ArrayAdapter
         mCategorySpinner = mView.findViewById(R.id.spCategory);
         mCategoryAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item);
+
 
         APIService apiService = RetrofitClient.getInstant2();
         String authorization = "Bearer " + accessToken;
@@ -156,6 +179,19 @@ public class AddFragment extends Fragment {
 
         // Đặt adapter cho Spinner
         mCategorySpinner.setAdapter(mCategoryAdapter);
+        mCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                idCategory = position +1 ;
+                // Sử dụng giá trị được chọn ở đây
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                idCategory =1;
+            }
+        });
 
         // Up ảnh
 
@@ -223,19 +259,14 @@ public class AddFragment extends Fragment {
         String authorization = "Bearer " + accessToken;
 
         APIService apiService = RetrofitClient.getInstant2();
-        Call<ResponseBody> call = apiService.uploadImage(authorization, body);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<ImageResponse> call = apiService.uploadImage(authorization, body);
+        call.enqueue(new Callback<ImageResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
                 if (response.isSuccessful()) {
-                    try{
-                        imageUrl = response.body().string();
-                        Toast.makeText(context, "Upload image successful", Toast.LENGTH_SHORT).show();
-                    }catch (IOException e){
-                        e.printStackTrace();
-                    }
-
-
+                        ImageResponse response1 = response.body();
+                        idAnh = response1.getId();
+                        Toast.makeText(context, "Upload image successful - id: ", Toast.LENGTH_SHORT).show();
 
 
                 } else {
@@ -245,14 +276,62 @@ public class AddFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<ImageResponse> call, Throwable t) {
                 Toast.makeText(context, "Failure + " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("anh", t.getMessage());
             }
         });
 
+    }
+    private void DangBai() {
+        // Lấy thông tin đăng bài từ các trường dữ liệu
+        String title = tvTitile.getText().toString();
+        String description = etMoTa.getText().toString();
+        int price = Integer.valueOf(etPrice.getText().toString());
+        String address = etDiaChi.getText().toString();
+        int categoryId = idCategory;
+        List<Integer> imageIds = new ArrayList<>();
+        imageIds.add(idAnh);
 
+        // Tạo instance của CreatePostRequest
+        CreatePostRequest request = new CreatePostRequest(title,description,price,address,categoryId,imageIds);
+        // Gọi API đăng bài
+        String accessToken = SharedPrefManager.getInstance(getContext()).getAccessToken();
+        String authorization = "Bearer " + accessToken;
+        Log.d(TAG, "Bearer " + accessToken);
+        Gson gson = new Gson();
+        String jsonRequest = gson.toJson(request);
+        Log.d("Request", jsonRequest);
 
-}
+        APIService apiService = RetrofitClient.getInstant2();
+        Call<PostResponse> call = apiService.createPost(authorization, request);
+        call.enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(context, "Thành Công", Toast.LENGTH_SHORT).show();
+                    PostResponse post = response.body();
+                    // Xử lý dữ liệu bài đăng thành công
+                    // ...
+                } else {
+                    String errorMessage = "";
+                    if (response.errorBody() != null) {
+                        try {
+                            errorMessage = response.errorBody().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Toast.makeText(context, "Thất Bại: " + errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostResponse> call, Throwable t) {
+                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 }

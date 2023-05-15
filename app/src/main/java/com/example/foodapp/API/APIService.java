@@ -1,8 +1,11 @@
 package com.example.foodapp.API;
 
+import com.example.foodapp.API.Request.CreatePostRequest;
 import com.example.foodapp.API.Request.LoginRequest;
 import com.example.foodapp.API.Request.RegisterRequest;
 import com.example.foodapp.API.Response.AuthResponse;
+import com.example.foodapp.API.Response.ImageResponse;
+import com.example.foodapp.API.Response.PostResponse;
 import com.example.foodapp.Model.*;
 
 import com.example.foodapp.Model.Category;
@@ -40,12 +43,16 @@ public interface APIService {
 
    @Multipart
    @POST("image/heroku/upload")
-   Call<ResponseBody> uploadImage(
+   Call<ImageResponse> uploadImage(
            @Header("Authorization") String authorization,
            @Part MultipartBody.Part image
    );
 
-
+   @POST("post")
+   @Headers("Content-Type: application/json")
+   Call<PostResponse> createPost(
+           @Header("Authorization") String authorization,
+           @Body CreatePostRequest request);
 
    @GET("lastproduct.php")
    Call<List<Product>> loadLastProduct();
