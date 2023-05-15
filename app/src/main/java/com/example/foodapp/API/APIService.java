@@ -7,6 +7,9 @@ import com.example.foodapp.Model.*;
 
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.product.Product;
+
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -14,7 +17,9 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 import java.util.List;
@@ -32,6 +37,13 @@ public interface APIService {
    @GET("category")
    @Headers({"Content-Type: application/json"})
    Call<List<Category>> getCategory(@Header("Authorization") String authorization);
+
+   @Multipart
+   @POST("image/heroku/upload")
+   Call<ResponseBody> uploadImage(
+           @Header("Authorization") String authorization,
+           @Part MultipartBody.Part image
+   );
 
 
 

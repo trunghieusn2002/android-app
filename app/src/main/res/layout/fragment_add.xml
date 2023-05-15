@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <EditText
         android:id="@+id/tvTitle"
-        android:layout_width="347dp"
-        android:layout_height="37dp"
+        android:layout_width="348dp"
+        android:layout_height="43dp"
         android:layout_marginStart="4dp"
         android:layout_marginBottom="24dp"
-        android:text="Tiêu đề"
+        android:hint="Tiêu đề"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/spCategory"
         app:layout_constraintStart_toStartOf="parent" />

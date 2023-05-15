@@ -42,9 +42,6 @@
                 android:name=".Activity.LoginActivity"
                 android:exported="false"/>
         <activity
-                android:name=".Activity.UploadImageActivity"
-                android:exported="false"/>
-        <activity
                 android:name=".Activity.ProfileActivity"
                 android:exported="false"/>
         <activity

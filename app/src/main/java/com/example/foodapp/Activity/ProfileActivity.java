@@ -54,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         imgUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, UploadImageActivity.class));
+//                startActivity(new Intent(ProfileActivity.this, UploadImageActivity.class));
             }
         });
 
