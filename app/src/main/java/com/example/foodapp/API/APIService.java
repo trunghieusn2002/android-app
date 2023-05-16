@@ -11,6 +11,7 @@ import com.example.foodapp.Model.*;
 import com.example.foodapp.Model.Category;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -56,6 +57,10 @@ public interface APIService {
    @Headers("Content-Type: application/json")
    Call<List<Post>> getPost(@Header("Authorization") String authorization);
 
+   @GET("post/user")
+   @Headers("Content-Type: application/json")
+   Call<List<Post>> getPostUser(@Header("Authorization") String authorization);
+
    @GET("post/{postId}")
    @Headers("Content-Type: application/json")
    Call<Post> getPostDetail(@Path("postId") int postId, @Header("Authorization") String authorization);
@@ -63,5 +68,15 @@ public interface APIService {
    @GET("app-user")
    @Headers("Content-Type: application/json")
    Call<User> getUser(@Header("Authorization") String authorization);
+
+   @Headers("Content-Type: application/json")
+   @POST("post-follower/{postId}")
+   Call<ResponseBody> theoDoiPost(
+           @Header("Authorization") String authorization,
+           @Path("postId") int postId);
+
+   @POST("post/hide/{id}")
+   @Headers("Content-Type: application/json")
+   Call<ResponseBody> hidePost(@Path("id") int postId, @Header("Authorization") String authorization);
 
 }

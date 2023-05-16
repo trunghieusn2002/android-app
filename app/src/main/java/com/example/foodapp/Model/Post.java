@@ -12,6 +12,9 @@ public class Post {
     private CategoryDTO categoryDTO;
     private List<PostImageDTO> postImageDTOs;
 
+    private boolean published;
+
+
     public static class CategoryDTO {
         private int id;
         private String name;
@@ -102,6 +105,10 @@ public class Post {
 
     public int getPrice() {
         return price;
+    }
+
+    public boolean getPublished() {
+        return published;
     }
 
     public String getAddress() {
