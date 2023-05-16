@@ -1,4 +1,4 @@
-package com.example.foodapp.product;
+package com.example.foodapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,23 +6,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.foodapp.Activity.DetailActivity;
+import com.example.foodapp.Model.Post;
 import com.example.foodapp.R;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ProductViewHolder> {
 
     public static final String TAG = "ProductAdapter";
 
-    private List<Product> products;
+    private List<Post> posts;
     private Context mContext;
 
-    public ProductAdapter(Context context, List<Product> products) {
+    public PostAdapter(Context context, List<Post> posts) {
         mContext = context;
-        this.products = products;
+        this.posts = posts;
     }
 
     @Override
@@ -34,16 +37,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        Product product = products.get(position);
+        Post post = posts.get(position);
 
-        Glide.with(mContext).load(product.getStrMealThumb()).into(holder.productImage);
-        //holder.productImage.setImageResource(product.getThumbnail());
+        Glide.with(mContext).load(post.getPostImageDTOs().get(0).getImageDTO().getUrl()).into(holder.productImage);
         holder.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                intent.putExtra("idMeal", product.getIdMeal());
+                intent.putExtra("idPost", post.getId());
                 view.getContext().startActivity(intent);
             }
         });
@@ -51,7 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return posts.size();
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {

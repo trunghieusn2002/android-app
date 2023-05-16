@@ -2,7 +2,6 @@ package com.example.foodapp.fragment;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -32,15 +30,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.API.APIService;
 import com.example.foodapp.API.Request.CreatePostRequest;
 import com.example.foodapp.API.Response.ImageResponse;
-import com.example.foodapp.API.Response.PostResponse;
+import com.example.foodapp.Model.Post;
 import com.example.foodapp.API.RetrofitClient;
-import com.example.foodapp.Adapter.CategoryAdapter;
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.Other.RealPathUtil;
 import com.example.foodapp.R;
@@ -55,7 +50,6 @@ import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -304,13 +298,13 @@ public class AddFragment extends Fragment {
         Log.d("Request", jsonRequest);
 
         APIService apiService = RetrofitClient.getInstant2();
-        Call<PostResponse> call = apiService.createPost(authorization, request);
-        call.enqueue(new Callback<PostResponse>() {
+        Call<Post> call = apiService.createPost(authorization, request);
+        call.enqueue(new Callback<Post>() {
             @Override
-            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+            public void onResponse(Call<Post> call, Response<Post> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(context, "Thành Công", Toast.LENGTH_SHORT).show();
-                    PostResponse post = response.body();
+                    Post post = response.body();
                     // Xử lý dữ liệu bài đăng thành công
                     // ...
                 } else {
@@ -327,7 +321,7 @@ public class AddFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<PostResponse> call, Throwable t) {
+            public void onFailure(Call<Post> call, Throwable t) {
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
             }
         });

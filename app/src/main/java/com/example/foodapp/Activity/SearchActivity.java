@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodapp.API.APIService;
 import com.example.foodapp.API.RetrofitClient;
+import com.example.foodapp.Adapter.SearchProductAdapter;
+import com.example.foodapp.Model.Post;
 import com.example.foodapp.R;
-import com.example.foodapp.product.Product;
-import com.example.foodapp.product.ProductAdapter;
-import com.example.foodapp.product.SearchProductAdapter;
+import com.example.foodapp.SharedPrefManager;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,12 +25,16 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     private SearchView svSearchProduct;
     private RecyclerView rvSearchProducts;
     private SearchProductAdapter searchProductAdapter;
-    private List<Product> productList;
+    private List<Post> posts;
+    private String accessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        accessToken = SharedPrefManager.getInstance(this).getAccessToken();
+        String authorization = "Bearer " + accessToken;
 
         // Initialize views
         rvSearchProducts = findViewById(R.id.rvSearchProducts); // Replace with your actual RecyclerView ID
@@ -37,12 +42,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
         // Set up RecyclerView with adapter and layout manager
         APIService apiService = RetrofitClient.getInstant();
-        apiService.loadLastProduct().enqueue(new Callback<List<Product>>() {
+        apiService.getPost(authorization).enqueue(new Callback<List<Post>>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                productList = response.body();
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                posts = response.body();
 
-                searchProductAdapter = new SearchProductAdapter(SearchActivity.this, productList);
+                searchProductAdapter = new SearchProductAdapter(SearchActivity.this, posts);
                 rvSearchProducts.setLayoutManager(new LinearLayoutManager(SearchActivity.this, RecyclerView.VERTICAL, false));
                 rvSearchProducts.setAdapter(searchProductAdapter);
 
@@ -51,7 +56,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
+            public void onFailure(Call<List<Post>> call, Throwable t) {
 
             }
         });
@@ -71,9 +76,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         return false;
     }
 
-    private List<Product> getProductList() {
-        List<Product> productList = new ArrayList<>();
+    private List<Post> getProductList() {
+        List<Post> posts = new ArrayList<>();
         // Add products to the list
-        return productList;
+        return posts;
     }
 }

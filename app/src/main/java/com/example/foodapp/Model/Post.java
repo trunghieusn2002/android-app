@@ -1,8 +1,8 @@
-package com.example.foodapp.API.Response;
+package com.example.foodapp.Model;
 
 import java.util.List;
 
-public class PostResponse {
+public class Post {
     private int id;
     private String title;
     private String description;

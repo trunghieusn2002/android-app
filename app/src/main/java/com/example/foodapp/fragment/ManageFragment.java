@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodapp.API.APIService;
 import com.example.foodapp.API.RetrofitClient;
+import com.example.foodapp.Model.Post;
 import com.example.foodapp.R;
 import com.example.foodapp.SharedPrefManager;
-import com.example.foodapp.product.Product;
-import com.example.foodapp.product.ProductAdapter;
+
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ import retrofit2.Response;
 
 public class ManageFragment extends Fragment {
     private View mView;
-    private List<Product> products;
+    private List<Post> posts;
     private ImageView imgProfile, imgBanner;
     private RecyclerView rvCategories;
     private TextView etAccessToken;

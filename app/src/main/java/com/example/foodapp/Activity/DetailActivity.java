@@ -52,7 +52,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        int idMeal = getIntent().getIntExtra("idMeal", -1);
+        int idMeal = getIntent().getIntExtra("idPost", -1);
         quantity = 1;
 
         tvMealName = findViewById(R.id.tvMealName);
