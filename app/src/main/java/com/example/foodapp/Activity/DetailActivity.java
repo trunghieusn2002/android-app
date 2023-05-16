@@ -62,8 +62,8 @@ public class DetailActivity extends AppCompatActivity {
                 TheoDoiBaiDang();
             }
         });
-
         getPostDetail(idPost);
+        getPostFollowed();
 
     }
 
@@ -125,5 +125,8 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(DetailActivity.this, "Failure: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void getPostFollowed(){
+
     }
 }

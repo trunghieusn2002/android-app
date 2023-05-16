@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,14 +28,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ManagePostAdapter extends RecyclerView.Adapter<ManagePostAdapter.ProductViewHolder> {
+public class FavoritePostAdapter extends RecyclerView.Adapter<FavoritePostAdapter.ProductViewHolder> {
 
     public static final String TAG = "ProductAdapter";
 
     private List<Post> posts;
     private Context mContext;
 
-    public ManagePostAdapter(Context context, List<Post> posts) {
+    public FavoritePostAdapter(Context context, List<Post> posts) {
         mContext = context;
         this.posts = posts;
     }
@@ -57,8 +56,6 @@ public class ManagePostAdapter extends RecyclerView.Adapter<ManagePostAdapter.Pr
         Log.d("Image URL", imageUrl);
 
         Glide.with(mContext).load(imageUrl).into(holder.imageViewProduct);
-        if(post.getPublished()) holder.btnHidePost.setText("Ẩn");
-        else holder.btnHidePost.setText("Hiện");
         holder.textViewProductName.setText(post.getTitle());
         holder.imageViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,31 +69,31 @@ public class ManagePostAdapter extends RecyclerView.Adapter<ManagePostAdapter.Pr
         holder.btnHidePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HidePost(post.getId());
+                DeleteFollowed(post.getId());
                 holder.btnHidePost.setEnabled(false);
+                holder.btnHidePost.setText("Đã Xoa");
             }
         });
     }
 
-    private void HidePost(int id){
+    private void DeleteFollowed(int id){
         String accessToken = SharedPrefManager.getInstance(mContext).getAccessToken();
         String authorization = "Bearer " + accessToken;
-
         APIService apiService = RetrofitClient.getInstant2();
-
-        apiService.hidePost(id,authorization).enqueue(new Callback<ResponseBody>() {
+        apiService.theoDoiPost(authorization, id).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(mContext, "Thành Công", Toast.LENGTH_SHORT).show();
+                if(response.isSuccessful()){
+                    Toast.makeText(mContext, "Xoá Thành Công: ", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(mContext, "Thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Thất bại: ", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(mContext, "Faild", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Failure: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

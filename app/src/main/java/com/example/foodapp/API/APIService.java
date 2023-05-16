@@ -79,4 +79,8 @@ public interface APIService {
    @Headers("Content-Type: application/json")
    Call<ResponseBody> hidePost(@Path("id") int postId, @Header("Authorization") String authorization);
 
+   @GET("post/followed")
+   @Headers("Content-Type: application/json")
+   Call<List<Post>> getFollowed(@Header("Authorization") String authorization);
+
 }
