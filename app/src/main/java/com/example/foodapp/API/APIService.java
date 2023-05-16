@@ -23,6 +23,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import java.util.List;
 
@@ -82,5 +83,11 @@ public interface APIService {
    @GET("post/followed")
    @Headers("Content-Type: application/json")
    Call<List<Post>> getFollowed(@Header("Authorization") String authorization);
+
+   @GET("post/category")
+   @Headers("Content-Type: application/json")
+   Call<List<Post>> getPostCategory(@Header("Authorization") String authorization,
+                                    @Query("categoryId") int idCategory);
+
 
 }

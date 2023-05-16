@@ -8,6 +8,10 @@
         tools:context=".Activity.CategoryActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/rvProductsByCategory"/>
+        android:id="@+id/rvProductsByCategory"
+        android:layout_width="411dp"
+        android:layout_height="590dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
