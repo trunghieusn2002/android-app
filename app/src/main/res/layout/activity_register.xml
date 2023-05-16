@@ -11,12 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/textView13"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/top_background2" />
 
     <EditText
@@ -85,20 +84,6 @@
         android:text="SIGN UP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPasswod" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="255dp"
-        android:layout_height="22dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="28dp"
-        android:text="Forget your password? Recovery it"
-        android:textAlignment="center"
-        android:textColor="#285198"
-        android:textColorLink="#4BA4C6"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView7"

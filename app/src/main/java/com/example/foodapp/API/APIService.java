@@ -1,5 +1,6 @@
 package com.example.foodapp.API;
 
+import com.example.foodapp.API.Request.ChangePasswordRequest;
 import com.example.foodapp.API.Request.CreatePostRequest;
 import com.example.foodapp.API.Request.LoginRequest;
 import com.example.foodapp.API.Request.RegisterRequest;
@@ -88,6 +89,12 @@ public interface APIService {
    @Headers("Content-Type: application/json")
    Call<List<Post>> getPostCategory(@Header("Authorization") String authorization,
                                     @Query("categoryId") int idCategory);
+
+   @POST("auth/change-password")
+   Call<ResponseBody> changePassword(
+           @Header("Authorization") String authorization,
+           @Body ChangePasswordRequest request
+   );
 
 
 }

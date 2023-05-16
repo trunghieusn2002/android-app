@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodapp.API.APIService;
+import com.example.foodapp.API.Request.ChangePasswordRequest;
 import com.example.foodapp.API.RetrofitClient;
 import com.example.foodapp.Adapter.PostAdapter;
 import com.example.foodapp.Model.Post;
@@ -20,8 +22,10 @@ import com.example.foodapp.Model.User;
 import com.example.foodapp.R;
 import com.example.foodapp.SharedPrefManager;
 
+import java.io.IOException;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,10 +35,9 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvUserID;
     private TextView tvUserFullName;
     private TextView tvUserEmail;
-    private TextView tvUserName;
-    private TextView tvUserGender;
+    private EditText etCurrent, etNew;
     private ImageView imgUser;
-    private ConstraintLayout btnLogout;
+    private ConstraintLayout btnLogout, bntChangePassword;
 
     private User user;
 
@@ -53,8 +56,17 @@ public class ProfileActivity extends AppCompatActivity {
         tvUserEmail = findViewById(R.id.tvUserEmail);
         imgUser = findViewById(R.id.imgUser);
         btnLogout = findViewById(R.id.btnLogout);
+        bntChangePassword = findViewById(R.id.btnChangePassword);
+        etCurrent = findViewById(R.id.etCurrentPass);
+        etNew = findViewById(R.id.etNewPass);
 
         getUser();
+        bntChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChangePassword();
+            }
+        });
 
 
         imgUser.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +104,35 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(ProfileActivity.this, "Failure: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void ChangePassword(){
+        APIService apiService = RetrofitClient.getInstant2();
+        ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest(etCurrent.getText().toString(), etNew.getText().toString());
+        apiService.changePassword(authorization, changePasswordRequest).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String message = response.body().string();
+                        // Hiển thị thông báo thành công
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Hiển thị thông báo thất bại
+                    Toast.makeText(getApplicationContext(), "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Hiển thị thông báo thất bại
+                Toast.makeText(getApplicationContext(), "Đổi mật khẩu thất bại: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
