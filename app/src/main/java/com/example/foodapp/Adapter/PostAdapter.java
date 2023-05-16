@@ -2,10 +2,12 @@ package com.example.foodapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +41,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ProductViewHol
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         Post post = posts.get(position);
 
-        Glide.with(mContext).load(post.getPostImageDTOs().get(0).getImageDTO().getUrl()).into(holder.productImage);
+
+        String imageUrl = "https://" + post.getPostImageDTOs().get(0).getImageDTO().getUrl();
+        Log.d("Image URL", imageUrl);
+
+        Glide.with(mContext).load(imageUrl).into(holder.productImage);
+        holder.postTitile.setText(post.getTitle());
         holder.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,11 +65,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ProductViewHol
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
         public ImageView productImage;
+        public TextView postTitile;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
 
             productImage = itemView.findViewById(R.id.product_image);
+            postTitile = itemView.findViewById(R.id.post_title);
 
         }
     }

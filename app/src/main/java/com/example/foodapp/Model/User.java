@@ -1,38 +1,32 @@
 package com.example.foodapp.Model;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
-    private int id;
-    private String username;
-
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    private String fname;
+public class User {
+    private String firstName;
+    private String lastName;
     private String email;
-    private String gender;
-    private String images;
+    private String phone;
 
-    public int getId() {
-        return id;
+    public User(String firstName, String lastName, String email, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getUsername() {
-        return username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -43,28 +37,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getGender() {
-        return gender;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getImages() {
-        return images;
-    }
-
-    public void setImages(String images) {
-        this.images = images;
-    }
-
-    public User(int id, String username, String fname, String email, String gender, String images) {
-        this.id = id;
-        this.username = username;
-        this.fname = fname;
-        this.email = email;
-        this.gender = gender;
-        this.images = images;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
+

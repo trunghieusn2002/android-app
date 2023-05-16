@@ -1,7 +1,5 @@
 package com.example.foodapp.API;
 
-import com.example.foodapp.Model.User;
-
 public class RetrofitClient extends BaseClient {
     private static final String BASE_URL = "http://app.iotstar.vn/appfoods/";
     private static final String BASE_URL2 = "https://rao-vat-api.herokuapp.com/api/v1/";

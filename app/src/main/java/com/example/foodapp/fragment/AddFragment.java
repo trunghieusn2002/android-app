@@ -305,8 +305,13 @@ public class AddFragment extends Fragment {
                 if (response.isSuccessful()) {
                     Toast.makeText(context, "Thành Công", Toast.LENGTH_SHORT).show();
                     Post post = response.body();
-                    // Xử lý dữ liệu bài đăng thành công
-                    // ...
+                    tvTitile.setText("");
+                    etMoTa.setText("");
+                    etPrice.setText("");
+                    etDiaChi.setText("");
+                    imageView.setImageResource(R.drawable.uploadimage);
+                    mUri = null;
+                    idAnh = 0;
                 } else {
                     String errorMessage = "";
                     if (response.errorBody() != null) {

@@ -40,7 +40,8 @@ public class HomeFragment extends Fragment {
     private List<Post> posts;
     private ImageView imgProfile, imgBanner;
     private RecyclerView rvCategories;
-    private String accessToken;
+    private String accessToken,authorization;
+    RecyclerView rvLastItem;
 
 
     @Nullable
@@ -49,7 +50,7 @@ public class HomeFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_home, container, false);
 
         accessToken = SharedPrefManager.getInstance(getContext()).getAccessToken();
-        String authorization = "Bearer " + accessToken;
+        authorization = "Bearer " + accessToken;
 
         imgProfile = mView.findViewById(R.id.imgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +63,7 @@ public class HomeFragment extends Fragment {
         imgBanner = mView.findViewById(R.id.imageView6);
         imgBanner.setImageResource(R.drawable.banner1);
 
-        RecyclerView rvLastItem;
+
         rvLastItem = mView.findViewById(R.id.rvLastItem);
         rvCategories = mView.findViewById(R.id.rvMainCategories);
 
@@ -75,37 +76,10 @@ public class HomeFragment extends Fragment {
         });
 
         APIService apiService = RetrofitClient.getInstant2();
-        apiService.getPost(authorization).enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                if (response.isSuccessful()) {
-                    posts = response.body();
-
-                    PostAdapter mPostAdapter = new PostAdapter(getActivity(), posts);
-                    rvLastItem.setAdapter(mPostAdapter);
-                    rvLastItem.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-
-                    Toast.makeText(getContext(), "Response successful", Toast.LENGTH_SHORT).show();
-                    Log.d("result", "onResponse: "+ response.body());
-                } else {
-                    Toast.makeText(getContext(), "Response failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failure: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
         apiService.getCategory(authorization).enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                Log.d("API Response", "Categories: " + response);
                 if (response.isSuccessful()) {
-                    Log.d("API Response", "Categories: " + response);
 
                     CategoryAdapter categoryAdapter = new CategoryAdapter(getActivity(), response.body());
                     rvCategories.setAdapter(categoryAdapter);
@@ -122,5 +96,34 @@ public class HomeFragment extends Fragment {
             }
         });
         return mView;
+    }
+
+    public void getPost(){
+        APIService apiService = RetrofitClient.getInstant2();
+        apiService.getPost(authorization).enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.isSuccessful()) {
+                    posts = response.body();
+
+                    PostAdapter mPostAdapter = new PostAdapter(getActivity(), posts);
+                    rvLastItem.setAdapter(mPostAdapter);
+                    rvLastItem.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+                } else {
+                    Toast.makeText(getContext(), "Response failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                Toast.makeText(getContext(), "Failure: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPost();
     }
 }

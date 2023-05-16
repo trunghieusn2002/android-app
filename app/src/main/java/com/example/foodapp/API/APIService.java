@@ -21,6 +21,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 import java.util.List;
 
@@ -55,9 +56,12 @@ public interface APIService {
    @Headers("Content-Type: application/json")
    Call<List<Post>> getPost(@Header("Authorization") String authorization);
 
-   @POST("newmealdetail.php")
-   @FormUrlEncoded
-   Call<Message<List<Detail>>> loadDetail(@Field("id") int id);
+   @GET("post/{postId}")
+   @Headers("Content-Type: application/json")
+   Call<Post> getPostDetail(@Path("postId") int postId, @Header("Authorization") String authorization);
 
+   @GET("app-user")
+   @Headers("Content-Type: application/json")
+   Call<User> getUser(@Header("Authorization") String authorization);
 
 }

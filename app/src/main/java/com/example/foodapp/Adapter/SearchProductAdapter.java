@@ -1,6 +1,8 @@
 package com.example.foodapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.foodapp.Activity.DetailActivity;
 import com.example.foodapp.Model.Post;
 import com.example.foodapp.R;
 
@@ -59,9 +62,19 @@ public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Bind data to ViewHolder views
         Post post = postListFiltered.get(position);
+        String imageUrl = "https://" + post.getPostImageDTOs().get(0).getImageDTO().getUrl();
+        Log.d("Image URL", imageUrl);
 
-        Glide.with(context).load(post.getPostImageDTOs().get(0).getImageDTO().getUrl()).into(holder.imgSearchProduct);
+        Glide.with(context).load(imageUrl).into(holder.imgSearchProduct);
         holder.tvSearchProductName.setText(post.getTitle());
+        holder.imgSearchProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DetailActivity.class);
+                intent.putExtra("idPost", post.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
