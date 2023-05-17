@@ -86,13 +86,13 @@ public class RegisterActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "else", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<AuthResponse> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Thất Bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Else", Toast.LENGTH_SHORT).show();
                     }
                 });
 
